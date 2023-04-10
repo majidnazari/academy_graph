@@ -39,7 +39,6 @@ class StudentController extends Controller
         public function update(StudentEditRequest $request,$id)
         {            
             $data= $this->repository->updateStudent($request,$id);
-            //dd($data->resource);
             if($data->resource)
             {
                 return response()->json($data,200);
@@ -57,7 +56,6 @@ class StudentController extends Controller
                 return response()->json($data,200); 
 
             }
-            //dd($data);
             return response()->json(new StudentErrorResource("not found to delete",404));   
                   
         }     

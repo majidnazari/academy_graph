@@ -72,10 +72,7 @@ final class ResetOtherUserPassword
         }
         $result_user->password = Hash::make($newPassword);
         $result_user->first_name =$user->first_name;
-        $result_user->save();
-        //$result=User::updateOrCreate($user->toArray());        
-        //Log::info("user is:" .$user );
-
+        $result_user->save();       
         return $result_user;
     }
 

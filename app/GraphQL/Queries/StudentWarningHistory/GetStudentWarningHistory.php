@@ -27,7 +27,6 @@ final class GetStudentWarningHistory
     {
         // $all_branch_id=Branch::where('deleted_at', null )->pluck('id');
         // $branch_id=Branch::where('deleted_at', null )->where('id',auth()->guard('api')->user()->branch_id)->pluck('id');
-        // //Log::info("the b are:" . json_encode($branch_id));
         // $branch_id = count($branch_id) == 0 ? $all_branch_id   : $branch_id ;   
         
         $branch_id = auth()->guard('api')->user()->branch_id;

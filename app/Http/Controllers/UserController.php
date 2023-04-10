@@ -21,7 +21,6 @@ class UserController extends Controller
     }
     public function getUserType(int $id) 
     {
-       // dd("this is test");
         //return $user_id=auth()->guard('api')->user()->id;
         $users=User::where('id',$id)         
         ->with("group") 
@@ -98,7 +97,6 @@ class UserController extends Controller
     }
     public function store(UserCreateRequest $request)
     { 
-        dd($request);
          $data= $this->repository->addUser($request);
               return response()->json($data,200); 
     }
@@ -126,7 +124,6 @@ class UserController extends Controller
     { 
        // $user=$this->repository->GetUser($id);   
         $user=User::find($id);
-       // dd($user->all());
        // return $user; 
         if(isset($user))
         {   

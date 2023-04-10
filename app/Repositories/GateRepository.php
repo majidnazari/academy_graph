@@ -49,12 +49,7 @@ class GateRepository implements GateRepositoryInter
            return new GateErrorResource("not found to delete.");   // not found to delete it is soft delete or id is not found
         }
 		return new GateResource($gate);		
-	}
-	// public function RestoreGate(Gate $gate){
-	// 	//return Gate::create($gate->all());
-	// 	return $gate->restore();
-	// }
-	// more 
+	}	
 	public function gateData($request)
     {
         $data=[

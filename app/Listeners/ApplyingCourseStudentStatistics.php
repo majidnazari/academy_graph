@@ -38,7 +38,6 @@ class ApplyingCourseStudentStatistics
         $total_dellay15 = 0;
         $total_present = 0;
         $total_absent = 0;
-        // Log::info("the listener handle is running and params is :\n" . json_encode($event->params));
         $courseStudent = CourseStudent::where('course_id', $event->params['course_id'])
             ->where('student_id', $event->params['student_id'])->first();
         if (!$courseStudent) {
@@ -52,7 +51,6 @@ class ApplyingCourseStudentStatistics
             ->with('courseSession.course')
             ->get();
         foreach ($all_absencePresence_of_a_course_of_student  as $one_absence_presence) {
-            //Log::info("the isds are:" . $one_absence_presence->id );
             $total_not_registered += $one_absence_presence->status == "not_registered" ? 1 : 0;
             $total_noAction += $one_absence_presence->status == "noAction" ? 1 : 0;
             $total_dellay60 += $one_absence_presence->status == "dellay60" ? 1 : 0;
@@ -62,10 +60,7 @@ class ApplyingCourseStudentStatistics
             $total_present += $one_absence_presence->status == "present" ? 1 : 0;
             $total_absent += $one_absence_presence->status == "absent" ? 1 : 0;
         }
-        //return false;      
-
-        //Log::info("the course student is :\n" . $courseStudent['total_not_registered']);
-
+       
         $courseStudent['total_not_registered'] = $total_not_registered;
         $courseStudent['total_noAction'] = $total_noAction;
         $courseStudent['total_dellay60'] = $total_dellay60;
@@ -77,8 +72,5 @@ class ApplyingCourseStudentStatistics
         $courseStudent['sum_total_present'] = $total_dellay60 + $total_dellay45 + $total_dellay30 + $total_dellay15 + $total_present;
 
         $courseStudent->save();
-
-        //Log::info("the listener handle is running and params is :\n" . $event->params['course_id']);
-
     }
 }

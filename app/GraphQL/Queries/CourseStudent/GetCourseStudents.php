@@ -23,18 +23,8 @@ final class GetCourseStudents
         // TODO implement the resolver
     }
     function resolveCourseStudent($rootValue, array $args, GraphQLContext $context, ResolveInfo $resolveInfo)
-    {
-        // $all_branch_id=Branch::where('deleted_at', null )->pluck('id');
-        // $branch_id=Branch::where('deleted_at', null )->where('id',auth()->guard('api')->user()->branch_id)->pluck('id');
-        // //Log::info("the b are:" . json_encode($branch_ids));
-        // $branch_id = count($branch_id) == 0 ? $all_branch_id   : $branch_id ;
-
+    {       
         $branch_id = auth()->guard('api')->user()->branch_id;
-
-        //Log::info("the branche id is" .  count($branch_id));
-        // $CourseStudent = CourseStudent::where('deleted_at', null);
-        // return $CourseStudent;
-        //Log::info("the status is: " .$args['manager_financial_not_equal']);
         if (AuthRole::CheckAccessibility("CourseStudent")) {
             //$CourseStudent= CourseStudent::where('deleted_at', null);//->orderBy('id','desc');
             $CourseStudent = CourseStudent::where('deleted_at', null)               

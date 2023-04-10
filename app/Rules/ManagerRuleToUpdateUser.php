@@ -34,15 +34,13 @@ class ManagerRuleToUpdateUser implements Rule
      */
     public function passes($attribute, $value)
     {
-        // Log::info("the id is : " .$this->id ."the attribute is: ".$attribute .   "the value is: " . $value . "  and the type is : " . $this->user_type );
        
          return $this->CheckAccessibility($this->id,$value,$this->user_type);
     }
     public function CheckAccessibility($id,$group_id,$user_type)
     {
         $user_id_type=User::where('id',$id)->with('group')->first();// the id given for changing 
-         //Log::info("user id type: " .  $user_id_type->group->type . " and id is :" .  $id);
-       // return false;
+        
         $group=Group::where('id',$group_id)->first();
         if(!$group){
             $this->err="IS_NOT_VALID_GROUP";

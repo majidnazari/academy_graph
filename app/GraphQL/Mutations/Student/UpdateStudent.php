@@ -48,7 +48,6 @@ final class UpdateStudent
             //'archived' => $args['archived']
         ];
         $response = Http::put(env('REMOTE_SERVER')."student_update/".$args['id'],$student_date);   
-        // $student_resut=Student::create($student_date);
          return $response;
         
     }

@@ -118,12 +118,10 @@ final class GetCourseStudentsWithAbsencePresence
         //         ->with('user_student_status')
         //         ->with('course.courseSession.absencePresences');
 
-        //         Log::info("result:" . json_encode($CourseStudent)); 
         //     return $CourseStudent;
         // }
         // $CourseStudent =CourseStudent::where('deleted_at',null)
         // ->where('id',-1); 
-        // //Log::info("result:" . json_encode($CourseStudent)); 
 
         // return  $CourseStudent;
     }

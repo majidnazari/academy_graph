@@ -27,7 +27,6 @@ final class DeleteUser
     public function resolve($rootValue, array $args, GraphQLContext $context = null, ResolveInfo $resolveInfo)
     {
         $user_id=auth()->guard('api')->user()->id;
-        //$args["user_id_creator"]=$user_id;
         $user=User::find($args['id']);
         if($user_id==$args['id']){
             return Error::createLocatedError("USER-DELETE-CANNOT_SUICIDE");

@@ -34,31 +34,6 @@ final class CreateTeacher
         ];
         $teacher_resut=Teacher::create($teacher_date);
         return $teacher_resut;
-
-        // if($teacher_resut)
-        // {
-        //     $group_user_data=[
-        //         'user_id_creator' => 1,
-        //         'user_id' => $user_resut->id,
-        //         'group_id' => $args['group_id'],
-        //         'key' =>''
-                
-        //     ];
-        //   if( !$group_user_result= GroupUser::create($group_user_data))
-        //   {
-        //     return [
-        //         'status'  => 'Error',
-        //         'message' => __('cannot create group user'),
-        //     ];
-        //   }
-        //   return $user_resut;
-          
-        // }
-        // return [
-        //     'status'  => 'Error',
-        //     'message' => __('cannot create user'),
-        // ];
-            
        
     }
 }

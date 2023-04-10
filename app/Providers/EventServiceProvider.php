@@ -37,7 +37,6 @@ class EventServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        //Log::info("the boot() of provider is running\n");
         Event::listen(
              UpdateCourseStudentStatistics::class,
             [ApplyingCourseStudentStatistics::class, 'handle'],

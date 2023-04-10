@@ -32,37 +32,12 @@ final class UpdateAbsencePresence
         $AbsencePresence = AbsencePresence::where('id', $args['id'])->with('courseSession')->first();
         $args['student_id']=$AbsencePresence->student_id;
         $args['course_session_id']=$AbsencePresence->course_session_id;
-        //Log::info("the result is:" . ($AbsencePresence->student_id));
-        //return  $AbsencePresence;
+       
         $old_status = $AbsencePresence->status;
 
         if (!$AbsencePresence) {
             return Error::createLocatedError('ABSENCEPRESENCE-UPDATE-RECORD_NOT_FOUND');
-        }
-
-        //$courseSession = CourseSession::where('id', $AbsencePresence['course_session_id'])->first();
-        // $params = [
-        //     "course_id" => $AbsencePresence->courseSession->course_id, // $courseSession['course_id'],
-        //     "student_id" => $AbsencePresence->student_id, //$AbsencePresence['student_id'],
-        //     // "total_not_registered" => ($old_status == "not_registered") ? -1 : 0,
-        //     // "total_noAction" => ($old_status == "noAction") ? -1 : 0,
-        //     // "total_dellay60" => ($old_status == "dellay60") ? -1 : 0,
-        //     // "total_dellay45" => ($old_status == "dellay45") ? -1 : 0,
-        //     // "total_dellay30" => ($old_status == "dellay30") ? -1 : 0,
-        //     // "total_dellay15" => ($old_status == "dellay15") ? -1 : 0,
-        //     // "total_present" => ($old_status == "present") ? -1 : 0,
-        //     // "total_absent" => ($old_status == "absent") ? -1 : 0,
-        // ];
-        //$UpdateCourseStudentReport=CourseStudentReportUpdator::updateTotalReport($params);
-        //Log::info("old params is: \n" . json_encode($params) );       
-        // try {
-        //     event(new  UpdateCourseStudentStatistics($params));
-        // } catch (\Exception $e) {
-        //     //Log::info("ex is: " .$e);
-        //     return Error::createLocatedError('COURSESTUDENTTOTALREPORT-UPDATE-RECORD_NOT_FOUND_OLDVALUE');
-        // }
-
-        //return  $AbsencePresence;
+        }       
         $AbsencePresence_result = $AbsencePresence->fill($args);
         $AbsencePresence->save();
 
@@ -79,21 +54,17 @@ final class UpdateAbsencePresence
             // "total_present" => ($args['status'] == "present") ? 1 : 0,
             // "total_absent" => ($args['status'] == "absent") ? 1 : 0,
         ];
-
-        //$UpdateCourseStudentReport=CourseStudentReportUpdator::updateTotalReport($params);
-        //Log::info("event is fier\n" );       
+      
         try {
             event(new  UpdateCourseStudentStatistics($params));
-        } catch (\Exception $e) {
-            //Log::info("ex is: " .$e);
+        } catch (\Exception $e) {           
             return Error::createLocatedError('COURSESTUDENTTOTALREPORT-UPDATE-RECORD_NOT_FOUND_NEWVALUE');
         }
 
         return $AbsencePresence_result;
     }
     public function UpdateAbsencePresenceWithStudentIdCourseSessionId($rootValue, array $args, GraphQLContext $context = null, ResolveInfo $resolveInfo)
-    {
-      
+    {      
         $user_id = auth()->guard('api')->user()->id;
         $args["user_id_creator"] = $user_id;
         $AbsencePresence = AbsencePresence::where('course_session_id', $args['course_session_id'])
@@ -118,12 +89,10 @@ final class UpdateAbsencePresence
             // "total_present" => ($old_status == "present") ? -1 : 0,
             // "total_absent" => ($old_status == "absent") ? -1 : 0,
         ];
-        //$UpdateCourseStudentReport=CourseStudentReportUpdator::updateTotalReport($params);
-        //Log::info("old params is: \n" . json_encode($params) );       
+        //$UpdateCourseStudentReport=CourseStudentReportUpdator::updateTotalReport($params);             
         try {
             event(new  UpdateCourseStudentStatistics($params));
-        } catch (\Exception $e) {
-            //Log::info("ex is: " .$e);
+        } catch (\Exception $e) {           
             return Error::createLocatedError('COURSESTUDENTTOTALREPORT-UPDATE-RECORD_NOT_FOUND_OLDVALUE');
         }
 
@@ -144,11 +113,10 @@ final class UpdateAbsencePresence
         ];
 
         //$UpdateCourseStudentReport=CourseStudentReportUpdator::updateTotalReport($params);
-        //Log::info("event is fier\n" );       
+            
         try {
             event(new  UpdateCourseStudentStatistics($params));
-        } catch (\Exception $e) {
-            //Log::info("ex is: " .$e);
+        } catch (\Exception $e) {           
             return Error::createLocatedError('COURSESTUDENTTOTALREPORT-UPDATE-RECORD_NOT_FOUND_NEWVALUE');
         }
 

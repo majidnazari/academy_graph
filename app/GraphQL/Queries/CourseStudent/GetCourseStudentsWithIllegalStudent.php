@@ -24,7 +24,6 @@ final class GetCourseStudentsWithIllegalStudent
     }
     function resolveCourseStudent($rootValue, array $args, GraphQLContext $context, ResolveInfo $resolveInfo)
     {
-        // //Log::info("the args is:" . json_encode($args) . "\r\n and  the root value:" .json_encode($rootValue) );
         // $current_page=(($args['page']-1) * $args['first']);
         // $first_item=$args['first'];
          
@@ -48,7 +47,6 @@ final class GetCourseStudentsWithIllegalStudent
         //     //             ->on('AB.course_session_id', 'Cse.id')
         //     //             ->where('AB.status', 'present');
         //     //     });
-        //     // // Log::info(json_encode($args));
         //     // $result = $qu->get();
         //     // $result = $result
         //     //     ->groupBy(['course_id', 'student_id']);
@@ -95,7 +93,6 @@ final class GetCourseStudentsWithIllegalStudent
         //     //     $data["paginatorInfo"]=[
         //     //         "count" =>120
         //     //     ];
-        //     //    // Log::info([$data]);
         //     // return [$data];
             
         //     // foreach ($results as $result)

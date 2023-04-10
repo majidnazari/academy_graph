@@ -19,13 +19,11 @@ class BasicModuleServiceProvider extends ServiceProvider
     {
         // App::bind('BasicModule', function()
         // {
-        //     //Log::info("the service provider basicmodule  is run.");
         //     //return new App\BasicFacade\BasicMethod;
         //     return new BasicModule;
         // });
         App::bind('UpdateCourseStudentReport', function()
         {
-            //Log::info("the service provider basicmodule  is run.");
             //return new App\BasicFacade\BasicMethod;
             return new UpdateCourseStudentReport;
         });

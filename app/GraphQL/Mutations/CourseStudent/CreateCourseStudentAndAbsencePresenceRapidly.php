@@ -86,10 +86,8 @@ final class CreateCourseStudentAndAbsencePresenceRapidly
 
     function isExist($class,$params)
     {  
-        $fullclassname='App\Models'.'\\'.$class;     
-        //Log::info("the query model is:". $model_name);
-       // $class= new ($model_name);
-       //$res= $class::where('id','>=',1)->first();               
+        $fullclassname='App\Models'.'\\'.$class;  
+                     
        $clause=(" where('id','>',1)");
          foreach($params as $name => $value){
              $clause.=("->where('$name' , '$value')");
@@ -103,12 +101,10 @@ final class CreateCourseStudentAndAbsencePresenceRapidly
         }
            
         return false;
-       // Log::info("the class name is:" .  $result);
     }
     function createModel($class,$params)
     {
         $fullclassname='App\Models'.'\\'.$class;
-        //Log::info("the class exist is : " . class_exists($class));
         if(class_exists($fullclassname))
         {
             $param_tmp="[ ";      
@@ -118,11 +114,9 @@ final class CreateCourseStudentAndAbsencePresenceRapidly
                 $param_tmp.=" => ";
                 $param_tmp.="'". $value ."'";
                 $param_tmp.= " , ";
-                //Log::info(" key  : " . $key . " val is:  " . $value);
             }
             $param_tmp.=" ]";
             $result=eval("return  $fullclassname::create($param_tmp);");
-            //Log::info("the create result item is : " . $result);
             if($result)
             {
                 return $result;
@@ -130,10 +124,7 @@ final class CreateCourseStudentAndAbsencePresenceRapidly
             return false;
         }
         return false;
-        
-        // foreach($params as $key => $value){
-        //     $clause.="
-        // }
+       
     }
     function createCourseStudent(array $args,int $user_id)
     {

@@ -39,15 +39,12 @@ final class CreateStudentWarning
             $student_warning_params["course_id"]=$args['course_id'];
         }  
         $is_exist_student_warning=StudentWarning::where("student_id",$args['student_id'])->first();
-        //$is_exist_student_warning = $this->isExist("StudentWarning", $student_warning_params);
 
         if ($is_exist_student_warning) {
             return Error::createLocatedError('STUDENT-WARNING-RECORD_IS_EXIST');
-           //return  StudentWarning::create( $student_warning_params);       
 
         }
         return $this->addStudentComment($student_warning_params);
-        //return $is_exist_student_warning;
         
     }
     function addStudentComment($student_warning_params)
@@ -55,31 +52,8 @@ final class CreateStudentWarning
         $student_warning_history=StudentWarningHistory::create( $student_warning_params);
         $student_warning_params["student_warning_history_id"] = $student_warning_history->id; 
         $student_warning=StudentWarning::create( $student_warning_params); 
-
-        return $student_warning_history;
-         
-        // $warning_history=StudentWarningHistory::where($student_warning_params)->first();
-        // if($warning_history)
-        // {
-        //     return Error::createLocatedError('LESSON-CREATE-RECORD_IS_EXIST');
-        // }
-        // $lesson_resut=Lesson::create($lesson_date);
-        // return $lesson_resut;
-        // return $student_warning_created;
-
-
-        // $student_warning_history_created = $this->createModel('StudentWarningHistory', $student_warning_params);
+        return $student_warning_history;         
         
-        // $student_warning_params["student_warning_history_id"] = $student_warning_history_created->id; 
-        
-
-        // $student_warning_created = $this->createModel('StudentWarning',  $student_warning_params);
-
-        // $student_warning_updated = $this->updateModel('StudentWarning', $params = [
-        //     "id" => $student_warning_created->id,
-        //     "student_warning_history_id" => $student_warning_history_created->id,
-        // ]);
-        //return  $student_warning_created;
     }
 
     function isExist($class, $params)
@@ -95,12 +69,10 @@ final class CreateStudentWarning
             return $result;
         }
         return false;
-        // Log::info("the class name is:" .  $result);
     }
     function createModel($class, $params)
     {
         $fullclassname = 'App\Models' . '\\' . $class;
-        //Log::info("the class $fullclassname exist is : " . class_exists($fullclassname));
         if (class_exists($fullclassname)) {
             $param_tmp = "[ ";
             foreach ($params as $key => $value) {
@@ -111,13 +83,11 @@ final class CreateStudentWarning
             }
             $param_tmp .= " ]";
             $result = eval("return  $fullclassname::create($param_tmp);");
-           // Log::info("the create result item of " . $fullclassname . " is : " . $result);
             if ($result) {
                 return $result;
             }
             return false;
         }
-        //Log::info("the  " . $class ." DOESNOT EXIST!!." );             
         return false;
     }
     function updateModel($class, $params)

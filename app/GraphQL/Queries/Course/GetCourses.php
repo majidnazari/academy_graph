@@ -30,7 +30,6 @@ final class GetCourses
     {
         $all_branch_id=Branch::where('deleted_at', null )->pluck('id');
         $branch_id=Branch::where('deleted_at', null )->where('id',auth()->guard('api')->user()->branch_id)->pluck('id');
-        //Log::info("the b are:" . json_encode($branch_id));
         $branch_id = count($branch_id) == 0 ? $all_branch_id   : $branch_id ;
 
         if (AuthRole::CheckAccessibility("Course")) {
@@ -58,13 +57,11 @@ final class GetCourses
     {
         $all_branch_id=Branch::where('deleted_at', null )->pluck('id');
         $branch_id=Branch::where('deleted_at', null )->where('id',auth()->guard('api')->user()->branch_id)->pluck('id');
-        //Log::info("the b are:" . json_encode($branch_id));
         $branch_id = count($branch_id) == 0 ? $all_branch_id   : $branch_id ;
 
         if (AuthRole::CheckAccessibility("CourseTotalReport")) {
             $courses_tmp = (isset($args['course_id'])  && ($args['course_id'] !=-1) ) ? Course::where('id', $args['course_id'])->whereIn('branch_id',$branch_id)->with('teacher')->get() : Course::whereIn('branch_id',$branch_id)->with('teacher')->orderBy('id', 'asc')->get();
-            //Log::info("the all courses are:" . $args['course_id']);
-            //Log::info(json_encode($courses_tmp));
+           
             $data = [];
             $courses = [];
             $absence_presence_id = 0;
@@ -97,12 +94,10 @@ final class GetCourses
             // }]);
             //$courses=Course::where('id', $args['course_id'])->with('teacher')->get();
             foreach ($courses_tmp as $course) {
-               // Log:info("the course id is: " . $course->id . "\n");
                 $teache_name = $course->teacher->first_name . ' ' . $course->teacher->last_name;
                 $courseSession = CourseSession::where('course_id', $course->id)
                 ->orderBy('start_date', 'asc');
                 $courseSession_last = CourseSession::where('course_id', $course->id)->orderBy('start_date', 'desc');
-                // Log::info("the latest is :" . json_encode($courseSession->orderBy('start_date', 'desc')->latest()->get()));
                 //$students = CourseStudent::where('course_id', $course->id);
                 $all_dellay_sum=$course->sum_dellay60_session + $course->sum_dellay45_session + $course->sum_dellay30_session + $course->sum_dellay30_session + $course->sum_dellay15_session;
                 $courses = [

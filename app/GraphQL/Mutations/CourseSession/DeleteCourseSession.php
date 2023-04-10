@@ -32,9 +32,7 @@ final class DeleteCourseSession
         
         $user_id = auth()->guard('api')->user()->id;
         $args["user_id_creator"] = $user_id;
-        $CourseSession = CourseSession::find($args['id']);
-      
-        //Log::info("the find is:" . ($CourseSession));
+        $CourseSession = CourseSession::find($args['id']);      
 
         if (!$CourseSession) {
             return Error::createLocatedError("COURSESESSION-DELETE-RECORD_NOT_FOUND");
@@ -79,10 +77,8 @@ final class DeleteCourseSession
         //         ->where('end_time','<',$current_time);
         //     }) ;
         // })      
-        // ->pluck('id');
+        // ->pluck('id');           
            
-           
-        //Log::info("the count of all except  not_R and noA is:" . $empty_absence_presence);
         if ($empty_absence_presence > 0) {
 
             return Error::createLocatedError("COURSESESSION-DELETE-IT_IS_USED_BEFORE");

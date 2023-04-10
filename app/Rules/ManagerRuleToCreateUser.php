@@ -33,7 +33,6 @@ class ManagerRuleToCreateUser implements Rule
      */
     public function passes($attribute, $value)
     {
-        //Log::info("the attribute is: ".$attribute .   "the value is: " . $value . "  and the type is : " . $this->user_type );
         return $this->CheckAccessibility($value,$this->user_type);
     }
     public function CheckAccessibility($group_id,$user_type)

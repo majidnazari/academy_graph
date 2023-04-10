@@ -26,7 +26,6 @@ class UpdateCourseStudentStatistics
        //return 
        $this->params=$params;
        $this->old_params=$old_params;
-        //Log::info("the event constructor  is running\n");
     }
 
     /**
@@ -36,7 +35,6 @@ class UpdateCourseStudentStatistics
      */
     public function broadcastOn()
     {
-        //Log::info("the event channel  is running\n");
         return new PrivateChannel('channel-name');
     }
 }

@@ -62,7 +62,6 @@ class TeacherRepository implements TeacheRepo
 
        $updateResult=$teacher->update($this->teacherData($request)); //return true if the update was successfull
        
-       //dd( $updateResult);
        return $updateResult;
 
 

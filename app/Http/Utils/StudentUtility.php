@@ -13,10 +13,8 @@ class StudentUtility
 {
     public function getAllStudents()
     {
-        //dd("academy reporsitory1111");      
         $response = Http::get(env('REMOTE_SERVER')."student_index");
-       // dd( $response->body());        //dd($response->body());
-       // dd($response->json());
+      
         return $response->json();
         //return $user;
     }
@@ -50,13 +48,11 @@ class StudentUtility
                     "egucation_level" => $request->egucation_level
         ] ;                
         $response = Http::put(env('REMOTE_SERVER')."student_update/$id",$student);
-        //dd($response->body());
         return $response->json();
     }
     public function deleteStudent($id)
     { 
         $response = Http::delete(env('REMOTE_SERVER')."student_destroy/$id"); 
-       // dd($response->body());      
         return $response->json();       
     }
     

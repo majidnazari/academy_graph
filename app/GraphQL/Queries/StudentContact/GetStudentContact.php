@@ -31,12 +31,10 @@ final class GetStudentContact
     }
     function resolvetestHeaderAttribute($rootValue, array $args, GraphQLContext $context, ResolveInfo $resolveInfo) 
     {
-        //Log::info($context->request()->header("Authorization"));       
         return $context->request()->header("Authorization");
     }
     function resolveShowTranslate($rootValue, array $args, GraphQLContext $context, ResolveInfo $resolveInfo) 
     {
-        //return public_path();
        return File::get(public_path() . '/fa.json');
     }
 }

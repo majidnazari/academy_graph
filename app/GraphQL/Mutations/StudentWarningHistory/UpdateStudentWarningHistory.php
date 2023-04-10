@@ -24,11 +24,9 @@ final class UpdateStudentWarningHistory
         $user_id=auth()->guard('api')->user()->id;
         $args["user_id_updater"]=$user_id;
         $student_warning=StudentWarning::where('student_id',$args['student_id'])->first();
-       // Log::info("history is: " . $student_warning->student_warning_history_id);
-        //return $student_warning;
+       
         $student_warning_history=StudentWarningHistory::where('id',$student_warning->student_warning_history_id)->first();
-        //return $student_warning_history;
-        
+       
         if(!$student_warning_history)
         {
             return Error::createLocatedError("STUDENTWARNINGHISTORY-UPDATE-RECORD_NOT_FOUND");

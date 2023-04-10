@@ -34,25 +34,21 @@ final class UpdateCourseStudent
         //   $v = trim( $value, "'" );
         //   $enum = array_add($enum, $v, $v);
         // }
-        // Log::info(" enums is : " .  $enum);
 
         $user_id=auth()->guard('api')->user()->id;
 
         $args["user_id_creator"]=$user_id;
         $CourseStudente=CourseStudent::find($args['id']);
-        ///$args['course_id']=$CourseStudente->course_id;
         
         if(!$CourseStudente)
         {
                 return Error::createLocatedError("COURSESTUDENT-UPDATE-RECORD_NOT_FOUND");
         }       
-        //$res=(in_array($args['student_status'],["refused_pending","fired_pending"]));
-        //Log::info("student status is :" .  (in_array($args['student_status'],["refused_pending","fired_pending"])==false));
-         if((auth()->guard('api')->user()->group->type=="acceptor") && (in_array($args['student_status'],["refused_pending","fired_pending"])==false))
-         {
+        if((auth()->guard('api')->user()->group->type=="acceptor") && (in_array($args['student_status'],["refused_pending","fired_pending"])==false))
+        {
             return Error::createLocatedError("COURSESTUDENT-UPDATE-ACTION_FORBIDEN");
-         }
-         if(isset($args['financial_status']) ){ 
+        }
+        if(isset($args['financial_status']) ){ 
             $CourseStudente['financial_status_updated_at']=Carbon::now();         
         }
         $CourseStudente_result= $CourseStudente->fill($args);

@@ -62,8 +62,6 @@ final class CreateCourseStudent
         // $now=strtotime(date("Y-m-d H:i:s"));
         $current_date=Carbon::now()->format('Y-m-d');
         $current_time=Carbon::now()->format('H:i:s');
-        //Log::info("current date is: " . $current_date . " current time is" . $current_time);
-
         $all_course_session_ids_of_this_course = CourseSession::
         where('course_id', $course_id)
         ->where(function ($q) use ($current_date, $current_time) {
@@ -74,7 +72,6 @@ final class CreateCourseStudent
             }) ;
         })      
         ->pluck('id');
-        //Log::info($all_course_session_ids_of_this_course);
         $cout_session=0;
         foreach ($all_course_session_ids_of_this_course as $course_session_id) {
             $cout_session++;
@@ -112,11 +109,9 @@ final class CreateCourseStudent
                         // "total_absent" => 0
                     ];
                     //$UpdateCourseStudentReport=CourseStudentReportUpdator::updateTotalReport($params);
-                    //Log::info("event is fier\n" );       
                     try {
                         event(new  UpdateCourseStudentStatistics($params));
                     } catch (\Exception $e) {
-                        //Log::info("ex is: " .$e);
                         return Error::createLocatedError('COURSESTUDENTNOTREGISTERED-CREATE-RECORD_HAS_ERROR');
                     }
                 }
