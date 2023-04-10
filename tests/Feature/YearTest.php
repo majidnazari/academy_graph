@@ -33,9 +33,7 @@ class YearTest extends TestCase
     {
         $count=rand(2,5);
         $year_created = year::factory($count)->create();
-        //dd(count($year_created));
-        //$this->ass
-        //$this->assertCount($count, $year_created);
+       
         $this->assertGreaterThanOrEqual($count,year::all()->count());
 
     }
@@ -55,7 +53,6 @@ class YearTest extends TestCase
         $year=Year::factory()->make()->toArray();
         Year::create($year);
         $find_year=Year::where($year)->first();
-        //dd($find_year->id);
         $new_year=Year::factory()->make()->toArray();
         $find_year->update($new_year);
         $this->assertDatabaseHas('years',$new_year);

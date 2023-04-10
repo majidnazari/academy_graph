@@ -46,7 +46,6 @@ class FaultTest extends TestCase
         Fault::create($Fault);
         $new_Fault=Fault::factory()->make()->toArray();
         $find_Fault=Fault::where($Fault)->update($new_Fault);
-        //dd($find_Fault->id);
         
         //$find_Fault->update($new_Fault);
         $this->assertDatabaseHas('faults',$new_Fault);        

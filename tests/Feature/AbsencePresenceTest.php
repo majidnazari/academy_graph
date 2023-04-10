@@ -48,9 +48,7 @@ class AbsencePresenceTest extends TestCase
 
         $AbsencePresence->update($AbsencePresence_newone);
         
-        //$find_AbsencePresence=AbsencePresence::where($AbsencePresence)->update($new_AbsencePresence);
-        //dd($find_AbsencePresence->id);
-        
+        //$find_AbsencePresence=AbsencePresence::where($AbsencePresence)->update($new_AbsencePresence);        
         //$find_AbsencePresence->update($new_AbsencePresence);
         $this->assertDatabaseHas('absence_presences',$AbsencePresence_newone);        
     }

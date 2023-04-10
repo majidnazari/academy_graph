@@ -40,9 +40,7 @@ class UserTest extends TestCase
         $user_created = User::factory($count)
         ->for(Branch::factory())
         ->create();
-        //dd(count($user_created));
-        //$this->ass
-        //$this->assertCount($count, $user_created);
+        
         $this->assertGreaterThanOrEqual($count,User::all()->count());
 
     }
