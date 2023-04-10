@@ -135,7 +135,6 @@ return [
     */
 
     'providers' => [
-
         /*
          * Laravel Framework Service Providers...
          */
@@ -169,15 +168,23 @@ return [
         /*
          * Application Service Providers...
          */
+        App\Providers\CheckAuthServiceProvider::class,
+        App\Providers\BasicModuleServiceProvider::class,
+
         App\Providers\AppServiceProvider::class,
         App\Providers\AuthServiceProvider::class,
         // App\Providers\BroadcastServiceProvider::class,
         App\Providers\EventServiceProvider::class,
         App\Providers\RouteServiceProvider::class,
+       
         App\Providers\RepositoryServiceProvider::class,
 
-        Tymon\JWTAuth\Providers\LaravelServiceProvider::class
-        
+        Tymon\JWTAuth\Providers\LaravelServiceProvider::class,
+        \Nuwave\Lighthouse\Federation\FederationServiceProvider::class,
+        \Nuwave\Lighthouse\CacheControl\CacheControlServiceProvider::class,
+
+        OwenIt\Auditing\AuditingServiceProvider::class,
+        \Nuwave\Lighthouse\WhereConditions\WhereConditionsServiceProvider::class,
     ],
 
     /*
@@ -231,6 +238,9 @@ return [
         'URL' => Illuminate\Support\Facades\URL::class,
         'Validator' => Illuminate\Support\Facades\Validator::class,
         'View' => Illuminate\Support\Facades\View::class,
+        'AuthRole' => App\AuthFacade\CheckAuthFacade::class,
+        //'BasicModule' => App\BasicFacade\BasicModuleFacade::class,
+        'CourseStudentReportUpdator' => App\BasicFacade\UpdateCourseStudentReport::class,
 
         'JWTAuth' => Tymon\JWTAuth\Facades\JWTAuth::class,
         'JWTFactory' => Tymon\JWTAuth\Facades\JWTFactory::class

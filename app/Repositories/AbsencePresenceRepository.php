@@ -31,12 +31,6 @@ class AbsencePresenceRepository  implements userInterface
 		
 		$data=AbsencePresence::where("id",$id)->with("user")->with("courseSession")->first();       
 		return $data;
-
-			//return new AbsencePresenceResource($data);
-		// else 
-        // {           
-        //     return new AbsencePresenceErrorResource("not found to fetch.");
-        // }
 	}
 
 	public function addAbsencePresence(AbsencePresenceCreateRequest $request)
@@ -44,8 +38,7 @@ class AbsencePresenceRepository  implements userInterface
     
         $data=$this->absencePresenceData($request);    
       	$response= AbsencePresence::create($data);
-		  return $response;
-       // return new AbsencePresenceResource($response);       
+		  return $response;     
 	}	
 
     public function updateAbsencePresence(AbsencePresenceEditRequest $request,AbsencePresence $absencepresence){

@@ -2,15 +2,19 @@
 
 namespace App\GraphQL\Queries\User;
 
+use App\AuthFacade\CheckAuthFacade;
 use App\Models\User;
 use Closure;
 use GraphQL\Type\Definition\ResolveInfo;
 use Nuwave\Lighthouse\Support\Contracts\GraphQLContext;
 use Nuwave\Lighthouse\Execution\ErrorHandler;
 use App\Exceptions\CustomException;
+use App\Models\Branch;
+use App\Models\Group;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Database\Query\Builder;
-
+use Illuminate\Support\Facades\Route;
+use AuthRole;
 
 final class GetUser //implements ErrorHandler
 {
@@ -26,33 +30,20 @@ final class GetUser //implements ErrorHandler
        
     }
     function resolveUserId($id): User
-    {        
-        $user= User::find($id);
+    {  
+        $all_branch_id=Branch::where('deleted_at', null )->pluck('id');
+        $branch_id=Branch::where('deleted_at', null )->where('id',auth()->guard('api')->user()->branch_id)->pluck('id');
+        $branch_id = count($branch_id) == 0 ? $all_branch_id   : $branch_id ;      
+        $user= User::where('id',$id)->whereIn('branch_id',$branch_id);
         return $user;
     }
     
     function resolveUserAttribute($rootValue, array $args, GraphQLContext $context, ResolveInfo $resolveInfo)//: Builder
     {
-       
-        // return DB::table('users')
-        // ->select('users.id As userId','users.*','group_user.*','groups.*','group_user.id As groupUserId','groups.id As groupId')
-        // ->leftJoin('group_user','users.id','=','group_user.user_id')
-        // ->leftJoin('groups','group_user.user_id','=','groups.id')
-        // ->where('users.id',$args['id']);
-            $user= User::find($args['id']);
-            return $user;
-        // }
-        // catch (\Throwable $error) {
-        //     $errorPool = app(\Nuwave\Lighthouse\Execution\ErrorPool::class);
-        //     $errorPool->record($error);
-        // }
-
-        // return DB::table('users')
-        // ->select('users.id As userId','users.*','group_user.*','groups.*','group_user.id As groupUserId','groups.id As groupId')
-        // ->leftJoin('group_user','users.id','=','group_user.user_id')
-        // ->leftJoin('groups','group_user.user_id','=','groups.id')
-        // ->where('users.id',$args['id'])->get();
-        
-            
+        $all_branch_id=Branch::where('deleted_at', null )->pluck('id');
+        $branch_id=Branch::where('deleted_at', null )->where('id',auth()->guard('api')->user()->branch_id)->pluck('id');
+        $branch_id = count($branch_id) == 0 ? $all_branch_id   : $branch_id ; 
+        $user= User::where('id',$args['id'])->whereIn('branch_id',$branch_id);
+            return $user;       
     }
 }

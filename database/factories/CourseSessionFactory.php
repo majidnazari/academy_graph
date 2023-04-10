@@ -2,6 +2,7 @@
 
 namespace Database\Factories;
 
+use App\Models\BranchClassRoom;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use App\Models\User;
 use App\Models\Course;
@@ -32,12 +33,15 @@ class CourseSessionFactory extends Factory
         $end_time =Carbon::parse(now('+5 Hour'))->format('H:00:00');
        
         return  [
-                    "user_id"   => $user,
-                    "course_id" => $course->id,
+                    "user_id_creator"   => $user,
+                    "branch_class_room_id" => BranchClassRoom::factory(),
+                    "course_id" => Course::factory(),
                     "name"      => $name,
+                    "price" =>  rand(0, 12000),
+                    "special" => rand(0,1),
                     "start_date" =>$start_date,
                     "start_time" =>$start_time,
                     "end_time" =>$end_time,
-        ];
+                ];
     }
 }

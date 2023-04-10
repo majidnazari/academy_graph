@@ -16,11 +16,16 @@ use Illuminate\Database\Query\Builder;
 use GraphQL\Type\Definition\ResolveInfo;
 use Illuminate\Database\Concerns\BuildsQueries;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
+use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 use Nuwave\Lighthouse\Support\Contracts\GraphQLContext;
 
+use OwenIt\Auditing\Contracts\Auditable;
 
-class User extends Authenticatable //implements JWTSubject //extends Authenticatable implements JWTSubject
+
+class User extends Authenticatable implements Auditable //implements JWTSubject //extends Authenticatable implements JWTSubject
 {
+    use \OwenIt\Auditing\Auditable;
     use HasApiTokens, HasFactory, Notifiable,SoftDeletes,BuildsQueries;
 
     //public function getAuthIdentifierName();
@@ -37,8 +42,10 @@ class User extends Authenticatable //implements JWTSubject //extends Authenticat
      */
     protected $fillable = [
         "id",
-        //'type',
+        'user_id_creator',
         //'mobile',
+        'branch_id',
+        'group_id',
         'email',
         'password',
         'first_name',
@@ -74,9 +81,17 @@ class User extends Authenticatable //implements JWTSubject //extends Authenticat
     // {
     //     return $this->belongsTo('Group');
     // }
-    public function groups() 
+    public function group()
     {
-        return $this->belongsToMany(Group::class);
+        return $this->belongsTo(Group::class);
+        // return $this->belongsToMany(Group::class)->withPivot(
+        //     "id",
+        //     "user_id_creator",
+        //     "key",
+        //     "user_id",
+        //     "group_id"
+
+        // );
         // ->using(GroupUser::class) // only needed to retrieve the tag from the tag_id
         // ->withPivot('created_at');
        // return $this->belongsTo('Group');
@@ -93,11 +108,27 @@ class User extends Authenticatable //implements JWTSubject //extends Authenticat
 
         // )->using(GroupUser::class);
     }
-
+    public function years() 
+    {
+        return $this->hasmany(Year::class);
+    }
+    // public function fault():HasMany
+    // {
+    //     return $this->hasMany(Fault::class,"user_id_creator");
+    // }
+    public function faults()
+    {
+        return $this->hasMany(Fault::class);
+    }
     
     public function courses()
     {
         return $this->hasmany('Course');
+    }
+   
+    public function branch()
+    {
+        return $this->belongsTo(Branch::class,"branch_id");
     }
     public function courseSessions()
     {
